@@ -2,10 +2,13 @@
 Credits
 =======
 
-Development Lead
+Development Team
 ----------------
 
 * Richard McDonald <rmcd@usgs.gov>
+* Martyn Smith
+* Anders Hopkins
+* Aaron Stephenson
 
 Contributors
 ------------
