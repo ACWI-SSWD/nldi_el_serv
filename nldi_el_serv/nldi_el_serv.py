@@ -48,7 +48,7 @@ def getXSAtPoint(point, numpoints, width, file=None):
     gpd_pt.to_crs(epsg=3857, inplace=True)
     comid = getCIDFromLatLon(point)
     print(f'comid = {comid}')
-    strm_seg = NLDI().getfeature_byid("comid", "3561878", basin=False).to_crs('epsg:3857')
+    strm_seg = NLDI().getfeature_byid("comid", comid, basin=False).to_crs('epsg:3857')
     xs = XSGen(point=gpd_pt, cl_geom=strm_seg, ny=100, width=1000)
     xs_line = xs.get_xs()
     # get topo polygon with buffer to ensure there is enough topography to interpolate xs line
