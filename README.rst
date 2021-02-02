@@ -18,20 +18,20 @@ NLDI Elevation Services
 
 NLDI Elevation Sevices
 
+* Free software
+* Documentation: https://nldi-el-serv.readthedocs.io.
+
 Development
 -----------
 * conda env create -f .\requirements_dev.yml
+* conda activate nldi_el_serv
 * pip install -e .
-
-
-* Free software
-* Documentation: https://nldi-el-serv.readthedocs.io.
 
 
 Features
 --------
 
-* TODO
+*  nldi_el_serv xsatpoint --file test1.json --latlon 40.2684 -103.80119 --width 1000 --numpoints 100
 
 Credits
 -------
