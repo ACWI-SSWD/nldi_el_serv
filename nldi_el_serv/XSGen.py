@@ -6,6 +6,10 @@ import pandas as pd
 
 
 class XSGen:
+    """ The XSGen class generates a cross-section on a stream segment given a location, width number of points.
+    It fits a tension spline to stream segment, and calculated cross-section perpendicular from sline.  
+    """
+
     def __init__(self, point, cl_geom, ny, width) -> None:
         self.cl_geom = cl_geom
 
@@ -27,7 +31,10 @@ class XSGen:
         mind = 1e6
         id = -1
         for index, p in enumerate(zip(clx, cly)):
-            dist = np.sqrt(np.power(self.point.geometry[0].x - p[0], 2) + np.power(self.point.geometry[0].y - p[1], 2))
+            dist = np.sqrt(
+                np.power(self.point.geometry[0].x - p[0], 2)
+                + np.power(self.point.geometry[0].y - p[1], 2)
+            )
             if dist < mind:
                 mind = dist
                 id = index
@@ -41,27 +48,29 @@ class XSGen:
         index = self._get_perp_index(clx, cly)
 
         for id, j in enumerate(range(0, self.ny)):
-            self.x[id] = clx[index] + delt * (nm - j - 1) * np.sin(self.cl.getphiinterp(index))
-            self.y[id] = cly[index] - delt * (nm - j - 1) * np.cos(self.cl.getphiinterp(index))
+            self.x[id] = clx[index] + delt * (nm - j - 1) * np.sin(
+                self.cl.getphiinterp(index)
+            )
+            self.y[id] = cly[index] - delt * (nm - j - 1) * np.cos(
+                self.cl.getphiinterp(index)
+            )
 
     def get_xs(self):
         points = gpd.GeoSeries(map(Point, zip(self.x, self.y)))
         ls = LineString((points.to_list()))
-        d = {0: {'name': 'cross-section', 'geometry': ls}}
-        df = pd.DataFrame.from_dict(d, orient='index')
+        d = {0: {"name": "cross-section", "geometry": ls}}
+        df = pd.DataFrame.from_dict(d, orient="index")
         gdf = gpd.GeoDataFrame(df, geometry=df.geometry)
         return gdf
-
 
     def get_xs_points(self):
         return self.x, self.y
 
-
     def get_strm_seg_spine(self):
-        x,y = self.cl.getinterppts()
-        points = gpd.GeoSeries(map(Point, zip(x,y)))
+        x, y = self.cl.getinterppts()
+        points = gpd.GeoSeries(map(Point, zip(x, y)))
         ls = LineString((points.to_list()))
-        d = {0: {'name': 'strm_seg_spline', 'geometry': ls}}
-        df = pd.DataFrame.from_dict(d, orient='index')
+        d = {0: {"name": "strm_seg_spline", "geometry": ls}}
+        df = pd.DataFrame.from_dict(d, orient="index")
         gdf = gpd.GeoDataFrame(df, geometry=df.geometry)
         return gdf

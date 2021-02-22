@@ -7,6 +7,7 @@ import geopandas as gpd
 import pandas as pd
 import json
 
+
 class NLDI_El_Serv:
     def __init__(self):
         self.out_crs = "epsg:4326"
@@ -50,14 +51,13 @@ def main(ctx, outcrs):
               # default=(-103.80119199999999, 40.268403),
               help="format lat lon as floats for example lat lon or -103.8011 40.2684")
 @click.option("--numpoints",
-             default=100,
-             type=int,
-             help="number of points in cross-section")
+              default=100,
+              type=int,
+              help="number of points in cross-section")
 @click.option("--width",
               default=1000.0,
               type=float,
               help="width of cross-section")
-
 @pass_nldi_el_serv
 def XSAtPoint(nldi_el_serv, latlon, numpoints, width, file):
     lat = latlon[0]
