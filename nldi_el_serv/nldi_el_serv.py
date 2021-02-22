@@ -11,17 +11,18 @@ import geopandas as gpd
 import pandas as pd
 import os.path as path
 
+
 class HPoint(Point):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     def __hash__(self):
-       return hash(tuple(self.coords))
+        return hash(tuple(self.coords))
 
 
 def dataframe_to_geodataframe(df):
     geometry = [HPoint(xy) for xy in zip(df.x, df.y)]
-    df = df.drop(['x','y'], axis=1)
+    df = df.drop(['x', 'y'], axis=1)
     gdf = gpd.GeoDataFrame(df, geometry=geometry)
     return gdf
 
@@ -40,9 +41,9 @@ def getXSAtPoint(point, numpoints, width, file=None):
     """
 
     tpoint = f'POINT({point[1]} {point[0]})'
-    df = pd.DataFrame({'pointofinterest':['this'],
-                        'Lat':[point[0]],
-                        'Lon':[point[1]]})
+    df = pd.DataFrame({'pointofinterest': ['this'],
+                       'Lat': [point[0]],
+                       'Lon': [point[1]]})
     gpd_pt = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.Lon, df.Lat))
     gpd_pt.set_crs(epsg=4326, inplace=True)
     gpd_pt.to_crs(epsg=3857, inplace=True)
@@ -54,8 +55,9 @@ def getXSAtPoint(point, numpoints, width, file=None):
     # get topo polygon with buffer to ensure there is enough topography to interpolate xs line
     # With coarsest DEM (30m) 100. m should
     bb = xs_line.total_bounds - ((100., 100., -100., -100.))
-    dem = py3dep.get_map("DEM", tuple(bb), resolution=10, geo_crs="EPSG:3857", crs="epsg:3857")
-    x,y = xs.get_xs_points()
+    dem = py3dep.get_map("DEM", tuple(bb), resolution=10,
+                         geo_crs="EPSG:3857", crs="epsg:3857")
+    x, y = xs.get_xs_points()
     dsi = dem.interp(x=('z', x), y=('z', y))
     pdsi = dsi.to_dataframe()
 
@@ -65,7 +67,7 @@ def getXSAtPoint(point, numpoints, width, file=None):
     gpdsi.to_crs(epsg=4326, inplace=True)
     if(file):
         if not isinstance(file, str):
-        # with open(file, "w") as f:
+            # with open(file, "w") as f:
             file.write(gpdsi.to_json())
             file.close()
             return 0
@@ -78,8 +80,10 @@ def getXSAtPoint(point, numpoints, width, file=None):
     else:
         return gpdsi
 
+
 def latlonToPoint(lat, lon):
     return Point(lat, lon)
+
 
 def getCIDFromLatLon(point):
     print(point)
@@ -93,6 +97,3 @@ def getCIDFromLatLon(point):
     jres = response.json()
     comid = jres['features'][0]['properties']['comid']
     return comid
-
-
-

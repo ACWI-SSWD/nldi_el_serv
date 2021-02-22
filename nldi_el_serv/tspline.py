@@ -2,7 +2,8 @@ from typing import Any, Union
 
 import numpy as np
 
-def tspline(x,y, n, xout, yout, iout, sigma, yp, temp):
+
+def tspline(x, y, n, xout, yout, iout, sigma, yp, temp):
     '''
     :param x: double
     :param y: double
@@ -64,7 +65,7 @@ def tspline(x,y, n, xout, yout, iout, sigma, yp, temp):
     a = x[0]
     b = x[1]
     nj = 1
-    for i in range(0,iout):
+    for i in range(0, iout):
         if (xout[i] > b):
             while (xout[i] > b):
                 a = b
@@ -81,4 +82,5 @@ def tspline(x,y, n, xout, yout, iout, sigma, yp, temp):
         exps = exps * exps1
         sinhs = 0.5 * (exps - 1. / exps)
         yout[i] = (yp[nj] * sinhd1 + yp[nj - 1] * sinhd2) / \
-                  sinhs + ((y[nj] - yp[nj]) * del1 + (y[nj - 1] - yp[nj - 1]) * del2) / dels
+            sinhs + ((y[nj] - yp[nj]) * del1 +
+                     (y[nj - 1] - yp[nj - 1]) * del2) / dels

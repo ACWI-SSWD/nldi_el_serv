@@ -31,3 +31,4 @@ dependencies:
  - geopandas
  - descartes
  - numba
+ - owslib
