@@ -7,13 +7,29 @@ from setuptools import setup, find_packages
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
-with open('requires.txt') as f:
-    requirements = f.read().splitlines()
+# with open('requires.txt') as f:
+#     requirements = f.read().splitlines()
 
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-# requirements = ['Click>=7.0', ]
+requirements = ['Click>=7.0',
+                'hydrodata',
+                'py3dep',
+                'pygeoogc',
+                'pygeoutils',
+                'pynhd',
+                'folium',
+                'lxml',
+                'matplotlib',
+                'xarray',
+                'dask',
+                'netcdf4',
+                'bottleneck',
+                'jupyterlab',
+                'geopandas',
+                'descartes',
+                'numba' ]
 
 setup_requirements = ['pytest-runner', ]
 
