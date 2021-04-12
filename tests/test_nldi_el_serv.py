@@ -6,7 +6,7 @@ import pytest
 
 from click.testing import CliRunner
 
-from nldi_el_serv import nldi_el_serv
+# from nldi_el_serv import nldi_el_serv
 from nldi_el_serv import cli
 
 

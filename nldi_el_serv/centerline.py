@@ -1,6 +1,7 @@
-import geopandas as gpd
+# import geopandas as gpd
 import numpy as np
 from .tspline import tspline
+
 
 class centerline:
     """

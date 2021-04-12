@@ -17,8 +17,10 @@ def channelBuilder(wsDepth, rightSS, leftSS, widthBottom):
     """
     leftToe = wsDepth*1.25*leftSS
     rightToe = wsDepth*1.25*rightSS
-    staElev = np.array([(0.0, wsDepth*1.25), (leftToe, 0.0), (leftToe +
-                                                              widthBottom, 0.0), (leftToe+widthBottom+rightToe, wsDepth*1.25)])
+    staElev = np.array([(0.0, wsDepth*1.25),
+                        (leftToe, 0.0),
+                        (leftToe + widthBottom, 0.0),
+                        (leftToe+widthBottom+rightToe, wsDepth*1.25)])
     return staElev
 
 
@@ -56,8 +58,8 @@ def polygonArea(corners):
 def channelPerimeter(corners):
     P = 0.0
     for i in range(len(corners)-1):
-        P += np.sqrt((np.power((corners[i+1][0]-corners[i][0]),
-                               2) + np.power((corners[i+1][1]-corners[i][1]), 2)))
+        P += np.sqrt((np.power((corners[i+1][0]-corners[i][0]), 2) +
+                      np.power((corners[i+1][1]-corners[i][1]), 2)))
     return P
 
 
@@ -76,7 +78,8 @@ def flowEst(wsElev, n, slope, staElev, units):
     intersectList = []
     for i in range(0, len(staElev)):
         x, y = lineIntersection(
-            (staElev[i-1], staElev[i]), ([staElev[0][0], wsElev], [staElev[-1][0], wsElev]))
+            (staElev[i-1], staElev[i]),
+            ([staElev[0][0], wsElev], [staElev[-1][0], wsElev]))
         if x >= staElev[i-1][0] and x <= staElev[i][0] and abs(y - wsElev) < 0.01:
             #             print (x,y)
             intersectList.append((x, y))
@@ -110,7 +113,7 @@ def flowEst(wsElev, n, slope, staElev, units):
         return 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
     staElevTrim = np.vstack([intersectArray[0], staElev, intersectArray[1]])
-    #staElevTrim = staElevTrim[staElevTrim[:,0].argsort()]
+    # staElevTrim = staElevTrim[staElevTrim[:,0].argsort()]
     staElevTrim = staElevTrim[np.where(
         (staElevTrim[:, 0] >= staMin) & (staElevTrim[:, 0] <= staMax))]
 

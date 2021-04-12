@@ -1,15 +1,15 @@
 """Main module."""
 from nldi_el_serv.XSGen import XSGen
 import requests
-import json
+# import json
 import py3dep
 from pynhd import NLDI
-import xarray as xr
-from matplotlib import pyplot as plt
+# import xarray as xr
+# from matplotlib import pyplot as plt
 from shapely.geometry import Point
 import geopandas as gpd
 import pandas as pd
-import os.path as path
+# import os.path as path
 
 
 class HPoint(Point):
@@ -40,7 +40,7 @@ def getXSAtPoint(point, numpoints, width, file=None):
         [type]: [description]
     """
 
-    tpoint = f'POINT({point[1]} {point[0]})'
+    # tpoint = f'POINT({point[1]} {point[0]})'
     df = pd.DataFrame({'pointofinterest': ['this'],
                        'Lat': [point[0]],
                        'Lon': [point[1]]})

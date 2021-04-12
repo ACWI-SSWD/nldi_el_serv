@@ -3,9 +3,9 @@ import sys
 import click
 import numpy as np
 from nldi_el_serv.nldi_el_serv import getXSAtPoint
-import geopandas as gpd
-import pandas as pd
-import json
+# import geopandas as gpd
+# import pandas as pd
+# import json
 
 
 class NLDI_El_Serv:
