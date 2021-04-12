@@ -47,7 +47,7 @@ def main(ctx, outcrs):
 @click.option("--latlon",
               required=True,
               # nargs=2,
-              type=tuple((np.float, np.float)),
+              type=tuple((float, float)),
               # default=(-103.80119199999999, 40.268403),
               help="format lat lon as floats for example lat lon or -103.8011 40.2684")
 @click.option("--numpoints",

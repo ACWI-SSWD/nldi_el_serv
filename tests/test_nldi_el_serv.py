@@ -30,8 +30,9 @@ def test_command_line_interface():
     """Test the CLI."""
     runner = CliRunner()
     result = runner.invoke(cli.main)
+    print(result)
     assert result.exit_code == 0
-    assert 'nldi_el_serv.cli.main' in result.output
+    assert 'xsatpoint' in result.output
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
-    assert '--help  Show this message and exit.' in help_result.output
+    assert '\n\nCommands:\n  xsatpoint\n' in help_result.output
