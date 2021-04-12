@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
-with open('requirements.txt') as f:
+with open('requires.txt') as f:
     requirements = f.read().splitlines()
 
 with open('HISTORY.rst') as history_file:
