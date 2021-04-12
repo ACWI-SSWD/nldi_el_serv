@@ -19,26 +19,22 @@ test_requirements = ['pytest>=3', ]
 setup(
     author="Richard McDonald",
     author_email='rmcd@usgs.gov',
-    python_requires='>=3.5',
+    python_requires='>=3.8',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
+        'License :: CC0 1.0 Universal',
         'Natural Language :: English',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
-    description="NLDI Elevation Sevices",
+    description="NLDI Elevation Services",
     entry_points={
         'console_scripts': [
             'nldi_el_serv=nldi_el_serv.cli:main',
         ],
     },
     install_requires=requirements,
-    license="MIT license",
+    license="CC0 1.0 Universal public domain dedication",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
     keywords='nldi_el_serv',
@@ -48,6 +44,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/rmcd-mscb/nldi_el_serv',
-    version='0.1.0',
+    version='0.1.1',
     zip_safe=False,
 )
