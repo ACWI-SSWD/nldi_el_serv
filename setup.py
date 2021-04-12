@@ -7,10 +7,13 @@ from setuptools import setup, find_packages
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
+with open("requirements.txt") as f:
+    requirements = f.read().splitlines()
+
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', ]
+#requirements = ['Click>=7.0', ]
 
 setup_requirements = ['pytest-runner', ]
 
@@ -43,7 +46,7 @@ setup(
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/rmcd-mscb/nldi_el_serv',
+    url='https://github.com/ACWI-SSWD/nldi_el_serv',
     version='0.1.1',
     zip_safe=False,
 )
