@@ -1,7 +1,7 @@
 """Console script for nldi_el_serv."""
 import sys
 import click
-import numpy as np
+# import numpy as np
 from nldi_el_serv.nldi_el_serv import getXSAtPoint
 # import geopandas as gpd
 # import pandas as pd
