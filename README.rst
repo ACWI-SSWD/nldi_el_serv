@@ -6,8 +6,8 @@ NLDI Elevation Services
 .. image:: https://img.shields.io/pypi/v/nldi_el_serv.svg
         :target: https://pypi.python.org/pypi/nldi_el_serv
 
-.. image:: https://img.shields.io/travis/rmcd-mscb/nldi_el_serv.svg
-        :target: https://travis-ci.com/rmcd-mscb/nldi_el_serv
+.. image:: https://travis-ci.com/ACWI-SSWD/nldi_el_serv.svg?branch=main
+        :target: https://travis-ci.com/ACWI-SSWD/nldi_el_serv
 
 .. image:: https://readthedocs.org/projects/nldi-el-serv/badge/?version=latest
         :target: https://nldi-el-serv.readthedocs.io/en/latest/?badge=latest
