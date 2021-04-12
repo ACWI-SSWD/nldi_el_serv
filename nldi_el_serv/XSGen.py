@@ -6,8 +6,9 @@ import pandas as pd
 
 
 class XSGen:
-    """ The XSGen class generates a cross-section on a stream segment given a location, width number of points.
-    It fits a tension spline to stream segment, and calculated cross-section perpendicular from sline.  
+    """ The XSGen class generates a cross-section on a stream segment given a location,
+        width number of points. It fits a tension spline to stream segment, and
+        calculated cross-section perpendicular from sline.
     """
 
     def __init__(self, point, cl_geom, ny, width) -> None:
