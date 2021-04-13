@@ -30,7 +30,8 @@ Development
 Features
 --------
 
-*  nldi_el_serv xsatpoint --file test1.json --latlon 40.2684 -103.80119 --width 1000 --numpoints 100
+* nldi_el_serv xsatpoint --file test1.json --latlon 40.2684 -103.80119 --width 1000 --numpoints 100
+* nldi_el_serv xsatendpts --file test1.json --latlon 40.267335 -103.801134  40.272798 -103.800787  --numpoints 100
 
 Credits
 -------

@@ -14,15 +14,17 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = ['Click>=7.0',
-                'hydrodata',
+                'pygeohydro',
                 'py3dep',
                 'pygeoogc',
                 'pygeoutils',
                 'pynhd',
+                'dataretrieval',
                 'folium',
                 'lxml',
                 'matplotlib',
                 'xarray',
+                'scipy',
                 'dask',
                 'netcdf4',
                 'bottleneck',
