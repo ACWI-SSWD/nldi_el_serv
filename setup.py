@@ -44,7 +44,7 @@ setup(
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
-        'License :: CC0 1.0 Universal',
+        'License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication',
         'Natural Language :: English',
         'Programming Language :: Python :: 3.8',
     ],
