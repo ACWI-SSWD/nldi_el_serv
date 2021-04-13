@@ -129,37 +129,5 @@ def XSAtEndPts(nldi_el_serv, latlon1, latlon2, numpoints, file):
     print(xs)
 
 
-@main.command()
-@click.option('--file',
-              required=True,
-              type=click.File('w'),
-              help='Output json file')
-@click.option('--latlon',
-              required=True,
-              type=list,
-              help='format lat lon pair as floats for example lat lon or  40.267335 -103.801134  40.272798 -103.800787')
-@click.option('--numpoints',
-              default=100,
-              type=int,
-              help='number of points in cross-section')
-@pass_nldi_el_serv
-def XSAtEndPts2(nldi_el_serv, latlon, numpoints, file):
-    lat1 = latlon[0][0]
-    lon1 = latlon[0][1]
-    lat2 = latlon[1][0]
-    lon2 = latlon[1][1]
-    nl = '\n'
-    print(
-        f'input:  {nl}, \
-        {latlon}, {nl}, \
-        lat1:{lat1}, lon1:{lon1}, {nl}, \
-        lat2:{lat2}, lon2:{lon2}, {nl}, \
-        npts={numpoints},  {nl}, \
-        crs={nldi_el_serv.outCRS()}  {nl}, \
-        file={file}, {nl},  \
-        out_epsg={nldi_el_serv.outCRS()} {nl}'
-        )
-
-
 if __name__ == '__main__':
     sys.exit(main())  # pragma: no cover

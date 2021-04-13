@@ -35,4 +35,4 @@ def test_command_line_interface():
     assert 'xsatpoint' in result.output
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
-    assert '\n\nCommands:\n  xsatpoint\n' in help_result.output
+    assert '\n\nCommands:\n  xsatendpts\n' in help_result.output
