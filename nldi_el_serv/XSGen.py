@@ -61,7 +61,7 @@ class XSGen:
         ls = LineString((points.to_list()))
         d = {0: {"name": "cross-section", "geometry": ls}}
         df = pd.DataFrame.from_dict(d, orient="index")
-        gdf = gpd.GeoDataFrame(df, geometry=df.geometry)
+        gdf = gpd.GeoDataFrame(df, geometry=df.geometry, crs=self.point.crs)
         return gdf
 
     def get_xs_points(self):

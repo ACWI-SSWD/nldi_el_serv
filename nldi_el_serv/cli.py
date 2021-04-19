@@ -42,33 +42,33 @@ def main(ctx, outcrs):
 
 
 @main.command()
-@click.option('--file',
+@click.option('-f', '--file',
               required=True,
               type=click.File('w'),
-              help='Output json file')
-@click.option('--latlon',
+              help='enter path and filenmae for json ouput')
+@click.option('-ll', '--lonlat',
               required=True,
               # nargs=2,
               type=tuple((float, float)),
               # default=(-103.80119199999999, 40.268403),
-              help='format lat lon as floats for example lat lon or -103.8011 40.2684')
-@click.option('--numpoints',
+              help='format lon,lat (x,y) as floats for example: -103.8011 40.2684')
+@click.option('-n', '--numpoints',
               default=100,
               type=int,
               help='number of points in cross-section')
-@click.option('--width',
+@click.option('-w', '--width',
               default=1000.0,
               type=float,
               help='width of cross-section')
 @pass_nldi_el_serv
-def XSAtPoint(nldi_el_serv, latlon, numpoints, width, file):
-    lat = latlon[0]
-    lon = latlon[1]
-    print(f'input={latlon}, lat={lat}, lon={lon}, \
+def XSAtPoint(nldi_el_serv, lonlat, numpoints, width, file):
+    x = lonlat[0]
+    y = lonlat[1]
+    print(f'input={lonlat}, lat={x}, lon={y}, \
     npts={numpoints}, width={width} and crs={nldi_el_serv.outCRS()} and \
     file={file} and out_epsg={nldi_el_serv.outCRS()}')
     # print(tuple(latlon))
-    xs = getXSAtPoint(point=tuple((lat, lon)),
+    xs = getXSAtPoint(point=tuple((x, y)),
                       numpoints=numpoints,
                       width=width,
                       file=file)
@@ -87,45 +87,55 @@ def XSAtPoint(nldi_el_serv, latlon, numpoints, width, file):
 
 
 @main.command()
-@click.option('--file',
+@click.option('-f', '--file',
               required=True,
               type=click.File('w'),
               help='Output json file')
-@click.option('-s', '--latlon1',
+@click.option('-s', '--startpt',
               required=True,
               type=tuple((float, float)),
-              help='format lat lon pair as floats for example lat lon or  40.267335 -103.801134  40.272798 -103.800787')
-@click.option('-e', '--latlon2',
+              help='format x y pair as floats for example: -103.801134 40.267335')
+@click.option('-e', '--endpt',
               required=True,
               type=tuple((float, float)),
-              help='format lat lon pair as floats for example lat lon or  40.267335 -103.801134  40.272798 -103.800787')
-@click.option('--numpoints',
+              help='format x y pair as floats for example: -103.800787 40.272798 ')
+@click.option('-c', '--crs',
+              required=True,
+              type=str,
+              help='spatial reference of input data',
+              default='epsg:4326')
+@click.option('-n', '--numpoints',
               default=100,
               type=int,
               help='number of points in cross-section')
+@click.option('-v', '--verbose',
+              default=False,
+              type=bool,
+              help='verbose ouput')
 @pass_nldi_el_serv
-def XSAtEndPts(nldi_el_serv, latlon1, latlon2, numpoints, file):
-    lat1 = latlon1[0]
-    lon1 = latlon1[1]
-    lat2 = latlon2[0]
-    lon2 = latlon2[1]
+def XSAtEndPts(nldi_el_serv, startpt, endpt, crs, numpoints, file, verbose):
+    x1 = startpt[0]
+    y1 = startpt[1]
+    x2 = endpt[0]   
+    y2 = endpt[1]
     nl = '\n'
     print(
         f'input:  {nl}, \
-        start: {latlon1}, {nl}, \
-        end: {latlon2}, {nl}, \
-        lat1:{lat1}, lon1:{lon1}, {nl}, \
-        lat2:{lat2}, lon2:{lon2}, {nl}, \
-        npts={numpoints},  {nl}, \
-        crs={nldi_el_serv.outCRS()}  {nl}, \
+        start: {startpt}, {nl}, \
+        end: {endpt}, {nl}, \
+        x1:{x1}, y1:{y1}, {nl}, \
+        x2:{x2}, y2:{y2}, {nl}, \
+        npts={numpoints}, {nl}, \
+        input_crs={crs}, {nl}, \
+        output_crs={nldi_el_serv.outCRS()}  {nl}, \
         file={file}, {nl}, \
-        out_epsg={nldi_el_serv.outCRS()} {nl}'
+        verbose: {verbose} '
         )
     path = []
-    path.append(latlon1)
-    path.append(latlon2)
+    path.append(startpt)
+    path.append(endpt)
     print(type(path))
-    xs = getXSAtEndPts(path=path, numpts=numpoints, file=file)
+    xs = getXSAtEndPts(path=path, numpts=numpoints, crs=crs, file=file)
     print(xs)
 
 

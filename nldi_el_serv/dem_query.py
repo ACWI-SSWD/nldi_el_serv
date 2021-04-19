@@ -10,7 +10,7 @@ from shapely.geometry import Point, LineString, Polygon
 
 # Resolution types and their respective IDs for the Rest Service
 res_types = {'res_1m': 19, 'res_3m': 19, 'res_5m': 20, 'res_10m': 21, 'res_30m': 22, 'res_60m': 23}
-
+dim_order = {'latlon': 0, 'lonlat': 1}
 # Create a bounding box from any geo type
 # 'width' is in meters. It is the width of the buffer to place around the input geometry
 
@@ -43,11 +43,12 @@ def convert_width(width):
 
 
 def get_dem(bbox, res_type):
-    miny = str(bbox[0])
-    minx = str(bbox[1])
-    maxy = str(bbox[2])
-    maxx = str(bbox[3])
+    minx = str(bbox[0])
+    miny = str(bbox[1])
+    maxx = str(bbox[2])
+    maxy = str(bbox[3])
     res_id = res_types[res_type]
+    # geom_str = 
 
     url = f'https://index.nationalmap.gov/arcgis/rest/services/3DEPElevationIndex/MapServer/{res_id}/query'
     payload = {
@@ -108,15 +109,33 @@ def get_dem(bbox, res_type):
 
 
 def query_dems(shape_type, coords, width=100):
+    """
+    Queries 3DEP 3DEPElevationIndex and returns of dictionary of available
+    resolutions for shapes bounding box.  
+
+    Args:
+        shape_type (Shapely geometric object in [Point, LineString, Polygon]): [description]
+        coords (List of tuples): For example, [(x,y), (x,y)]
+        width (int, optional): [width to buffer bounding box of shape]. Defaults to 100.
+    """
     resp = {}  # Create an empty dictionary for the response
     bbox = make_bbox(shape_type, coords, width)  # Make the bbox
+    print(bbox)
     for res_type in res_types:   # Loop thru all resolutions and submit a query for each one
         resp[res_type] = (get_dem(bbox, res_type))  # Add the response to the dictionary
 
     # print(resp)
     return(resp)
 
+
+def query_dems_shape(bbox):
+    resp = {}
+
+    for res_type in res_types:
+        resp[res_type] = (get_dem(bbox, res_type))
+    return resp
+
 # Tests #########
-# query_dems('point', [(39,-96)])
-# query_dems('line', [(39,-96.0001), (39,-96)])
-# query_dems('polygon', [(39,-96.0008), (39,-96), (39.0008, -96)])
+# query_dems('point', [(-96, 39)])
+# query_dems('line', [(-96.0001, 39), (-96, 39)])
+# query_dems('polygon', [(-96.0008, 39), (-96, 39), ( -96, 39.0008)])
