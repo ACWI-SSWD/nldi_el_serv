@@ -31,12 +31,17 @@ def dataframe_to_geodataframe(df, crs):
 
 
 def getXSAtEndPts(path, numpts, crs, file=None):
-    # print(
-    #     f'geom: {path} numpts: {numpts} file: {file}'
-    # )
+    """[summary]
 
-    # y = []
-    # x = []
+    Args:
+        path ([type]): [description]
+        numpts ([type]): [description]
+        crs ([type]): [description]
+        file ([type], optional): [description]. Defaults to None.
+
+    Returns:
+        [type]: [description]
+    """
     lnst = []
     for pt in path:
         # print(pt[0], pt[1])

@@ -8,6 +8,8 @@ from click.testing import CliRunner
 
 # from nldi_el_serv import nldi_el_serv
 from nldi_el_serv import cli
+from tempfile import NamedTemporaryFile
+import json
 
 
 @pytest.fixture
@@ -36,3 +38,41 @@ def test_command_line_interface():
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert '\n\nCommands:\n  xsatendpts\n' in help_result.output
+
+
+def test_xsatpoint():
+    runner = CliRunner()
+
+    with NamedTemporaryFile(mode='w+') as tf:
+        result = runner.invoke(
+                                cli.main,
+                                [
+                                    'xsatpoint', '-f', tf.name,
+                                    '--lonlat', '-103.80119', '40.2684',
+                                    '--width', '100', '--numpoints', '11'
+                                ]
+                              )
+        assert(result.exit_code == 0)
+        ogdata = json.load(tf)
+        feat = ogdata.get('features')
+        assert(len(feat) == 11)
+
+
+def test_xsatendpts():
+    runner = CliRunner()
+
+    with NamedTemporaryFile(mode='w+') as tf:
+        result = runner.invoke(
+                                cli.main,
+                                [
+                                    'xsatendpts', '-f', tf.name,
+                                    '-s', '-103.801134', '40.26733',
+                                    '-e', '-103.800787', ' 40.272798',
+                                    '-c', 'epsg:4326',
+                                    '-n', '11'
+                                ]
+                              )
+        assert(result.exit_code == 0)
+        ogdata = json.load(tf)
+        feat = ogdata.get('features')
+        assert(len(feat) == 11)
