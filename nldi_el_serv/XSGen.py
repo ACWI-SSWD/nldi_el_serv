@@ -20,9 +20,9 @@ class XSGen:
         self.cl_length = self.cl_geom.geometry[0].length
         self.ny = ny
         if self.cl_length > 20.0:
-            self.nx = np.int(self.cl_length / 10)
+            self.nx = int(self.cl_length / 10)
         else:
-            self.nx = np.int(self.cl_length / 1)
+            self.nx = int(self.cl_length / 1)
         self.cl = centerline(cl_geom, self.nx, self.tension)
         self.x = np.zeros(self.ny, dtype=np.double)
         self.y = np.zeros(self.ny, dtype=np.double)
@@ -45,7 +45,7 @@ class XSGen:
     def _buildxs(self):
         clx, cly = self.cl.getinterppts()
         delt = np.double(self.width / (self.ny - 1))
-        nm = np.int((self.ny + 1) / 2)
+        nm = int((self.ny + 1) / 2)
         index = self._get_perp_index(clx, cly)
 
         for id, j in enumerate(range(0, self.ny)):
