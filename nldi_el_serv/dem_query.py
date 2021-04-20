@@ -48,7 +48,6 @@ def get_dem(bbox, res_type):
     maxx = str(bbox[2])
     maxy = str(bbox[3])
     res_id = res_types[res_type]
-    # geom_str = 
 
     url = f'https://index.nationalmap.gov/arcgis/rest/services/3DEPElevationIndex/MapServer/{res_id}/query'
     payload = {
@@ -111,7 +110,7 @@ def get_dem(bbox, res_type):
 def query_dems(shape_type, coords, width=100):
     """
     Queries 3DEP 3DEPElevationIndex and returns of dictionary of available
-    resolutions for shapes bounding box.  
+    resolutions for shapes bounding box.
 
     Args:
         shape_type (Shapely geometric object in [Point, LineString, Polygon]): [description]
