@@ -7,7 +7,7 @@ from nldi_el_serv.nldi_el_serv import getXSAtPoint, getXSAtEndPts
 # import pandas as pd
 # import json
 
-
+resdict = {'1m': 1, '3m': 3, '5m': 5, '10m': 10, '30m': 30, '60m': 60}
 class NLDI_El_Serv:
     def __init__(self):
         self.out_crs = 'epsg:4326'
@@ -42,43 +42,62 @@ def main(ctx, outcrs):
 
 
 @main.command()
-@click.option('-f', '--file',
-              default=None,
-              type=click.File('w'),
-              help='enter path and filenmae for json ouput')
-@click.option('-ll', '--lonlat',
-              required=True,
-              # nargs=2,
-              type=tuple((float, float)),
-              # default=(-103.80119199999999, 40.268403),
-              help='format lon,lat (x,y) as floats for example: -103.8011 40.2684')
-@click.option('-n', '--numpoints',
-              default=100,
-              type=int,
-              help='number of points in cross-section')
-@click.option('-w', '--width',
-              default=1000.0,
-              type=float,
-              help='width of cross-section')
-@click.option('-v', '--verbose',
-              default=False,
-              type=bool,
-              help='verbose ouput')
+@click.option(
+                '-f', '--file',
+                default=None,
+                type=click.File('w'),
+                help='enter path and filenmae for json ouput'
+             )
+@click.option(
+                '-ll', '--lonlat',
+                required=True,
+                type=tuple((float, float)),
+                help='format lon,lat (x,y) as floats for example: -103.8011 40.2684'
+             )
+@click.option(
+                '-n', '--numpoints',
+                default=101,
+                type=int,
+                help='number of points in cross-section'
+             )
+@click.option(
+                '-w', '--width',
+                default=1000.0,
+                type=float,
+                help='width of cross-section')
+@click.option(
+                '-r', '--resolution',
+                type=click.Choice(['1m', '3m', '5m', '10m', '30m', '60m'], case_sensitive=False),
+                default='10m',
+                help='Resolution of DEM used.  Note: 3DEP provides server side interpolatin given best available data'
+             )
+@click.option(
+                '-v', '--verbose',
+                default=False,
+                type=bool,
+                help='verbose ouput'
+             )
 @pass_nldi_el_serv
-def XSAtPoint(nldi_el_serv, lonlat, numpoints, width, file, verbose):
+def XSAtPoint(nldi_el_serv, lonlat, numpoints, width, resolution, file, verbose):
     x = lonlat[0]
     y = lonlat[1]
+    nl = '\n'
     if verbose:
         print(
-            f'input={lonlat}, lat={x}, lon={y}, \
-            npts={numpoints}, width={width} and crs={nldi_el_serv.outCRS()} and \
-            file={file} and out_epsg={nldi_el_serv.outCRS()}'
+                f'input={lonlat}, lat={x}, lon={y}, {nl} \
+                npts={numpoints}, width={width}, resolution={resolution}, {nl} \
+                crs={nldi_el_serv.outCRS()}, {nl} \
+                file={file}, {nl} \
+                out_epsg={nldi_el_serv.outCRS()}'
             )
     # print(tuple(latlon))
-    xs = getXSAtPoint(point=tuple((x, y)),
-                      numpoints=numpoints,
-                      width=width,
-                      file=file)
+    xs = getXSAtPoint(
+                        point=tuple((x, y)),
+                        numpoints=numpoints,
+                        width=width,
+                        file=file,
+                        res=resdict.get(resolution)
+                    )
     if file is None:
         print(xs.to_json())
     return 0
@@ -108,12 +127,18 @@ def XSAtPoint(nldi_el_serv, lonlat, numpoints, width, file, verbose):
               default=100,
               type=int,
               help='number of points in cross-section')
+@click.option(
+                '-r', '--resolution',
+                type=click.Choice(['1m', '3m', '5m', '10m', '30m', '60m'], case_sensitive=False),
+                default='10m',
+                help='Resolution of DEM used.  Note: 3DEP provides server side interpolatin given best available data'
+             )
 @click.option('-v', '--verbose',
               default=False,
               type=bool,
               help='verbose ouput')
 @pass_nldi_el_serv
-def XSAtEndPts(nldi_el_serv, startpt, endpt, crs, numpoints, file, verbose):
+def XSAtEndPts(nldi_el_serv, startpt, endpt, crs, numpoints, resolution, file, verbose):
     x1 = startpt[0]
     y1 = startpt[1]
     x2 = endpt[0]
@@ -127,6 +152,7 @@ def XSAtEndPts(nldi_el_serv, startpt, endpt, crs, numpoints, file, verbose):
             x1:{x1}, y1:{y1}, {nl}, \
             x2:{x2}, y2:{y2}, {nl}, \
             npts={numpoints}, {nl}, \
+            resolution={resolution}, \
             input_crs={crs}, {nl}, \
             output_crs={nldi_el_serv.outCRS()}  {nl}, \
             file={file}, {nl}, \
@@ -136,7 +162,13 @@ def XSAtEndPts(nldi_el_serv, startpt, endpt, crs, numpoints, file, verbose):
     path.append(startpt)
     path.append(endpt)
     # print(type(path))
-    xs = getXSAtEndPts(path=path, numpts=numpoints, crs=crs, file=file)
+    xs = getXSAtEndPts(
+                        path=path,
+                        numpts=numpoints,
+                        res=resdict.get(resolution),
+                        crs=crs,
+                        file=file
+                      )
     if file is None:
         print(xs.to_json())
     return 0

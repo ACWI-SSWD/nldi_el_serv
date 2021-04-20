@@ -49,7 +49,8 @@ def test_xsatpoint():
                                 [
                                     'xsatpoint', '-f', tf.name,
                                     '--lonlat', '-103.80119', '40.2684',
-                                    '--width', '100', '--numpoints', '11'
+                                    '--width', '100', '--numpoints', '11',
+                                    '-r', '10m'
                                 ]
                               )
         assert(result.exit_code == 0)
@@ -69,10 +70,33 @@ def test_xsatendpts():
                                     '-s', '-103.801134', '40.26733',
                                     '-e', '-103.800787', ' 40.272798',
                                     '-c', 'epsg:4326',
-                                    '-n', '11'
+                                    '-n', '11',
+                                    '-r', '10m'
                                 ]
                               )
         assert(result.exit_code == 0)
         ogdata = json.load(tf)
         feat = ogdata.get('features')
         assert(len(feat) == 11)
+
+
+def test_xsatendpts_wres():
+    runner = CliRunner()
+    res = ['1m', '3m', '5m', '10m', '30m', '60m']
+    for tr in res:
+        with NamedTemporaryFile(mode='w+') as tf:
+            result = runner.invoke(
+                                    cli.main,
+                                    [
+                                        'xsatendpts', '-f', tf.name,
+                                        '-s', '-103.801134', '40.26733',
+                                        '-e', '-103.800787', ' 40.272798',
+                                        '-c', 'epsg:4326',
+                                        '-n', '11',
+                                        '-r', tr
+                                    ]
+                                )
+            assert(result.exit_code == 0)
+            ogdata = json.load(tf)
+            feat = ogdata.get('features')
+            assert(len(feat) == 11)
