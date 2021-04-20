@@ -31,7 +31,7 @@ requirements = ['Click>=7.0',
                 'jupyterlab==3.0.14',
                 'geopandas==0.9.0',
                 'descartes==1.1.0',
-                'numba==0.53.1' ]
+                'numba==0.53.1']
 
 setup_requirements = ['pytest-runner', ]
 
