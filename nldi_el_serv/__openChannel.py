@@ -98,7 +98,8 @@ def flowEst(wsElev, n, slope, staElev, units):
         endPoint = intersectArray[np.where(
             intersectArray[:, 0] > staMinElev)][0]
         intersectArray = np.vstack([startPoint, endPoint])
-    except:
+    except Exception as e:
+        print(e)
         return 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
     staMin = np.min(intersectArray[:, 0])

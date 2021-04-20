@@ -31,17 +31,17 @@ Features
 --------
 
 * nldi_el_serv xsatpoint -f test1.json --lonlat -103.80119 40.2684  --width 1000 --numpoints 101
-* nldi_el_serv xsatendpts -f test2.json -s -103.801134 40.267335 -e -103.800787 40.272798 -c epsg:4326 -numpoints 101
+* nldi_el_serv xsatendpts -f test2.json -s -103.801134 40.267335 -e -103.800787 40.272798 -c epsg:4326 -n 101
 
 Credits
 -------
 
 CLI developed from example: https://github.com/pallets/click/blob/master/examples/repo/repo.py
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+This package was created with Cookiecutter_ and the `NSLS-II/scientific-python-cookiecutter`_ project template.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+.. _https://github.com/NSLS-II/scientific-python-cookiecutter
 
 Disclaimer
 ----------

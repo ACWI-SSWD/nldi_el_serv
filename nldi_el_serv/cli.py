@@ -43,7 +43,7 @@ def main(ctx, outcrs):
 
 @main.command()
 @click.option('-f', '--file',
-              required=True,
+              default=None,
               type=click.File('w'),
               help='enter path and filenmae for json ouput')
 @click.option('-ll', '--lonlat',
@@ -60,35 +60,35 @@ def main(ctx, outcrs):
               default=1000.0,
               type=float,
               help='width of cross-section')
+@click.option('-v', '--verbose',
+              default=False,
+              type=bool,
+              help='verbose ouput')
 @pass_nldi_el_serv
-def XSAtPoint(nldi_el_serv, lonlat, numpoints, width, file):
+def XSAtPoint(nldi_el_serv, lonlat, numpoints, width, file, verbose):
     x = lonlat[0]
     y = lonlat[1]
-    print(f'input={lonlat}, lat={x}, lon={y}, \
-    npts={numpoints}, width={width} and crs={nldi_el_serv.outCRS()} and \
-    file={file} and out_epsg={nldi_el_serv.outCRS()}')
+    if verbose:
+        print(
+            f'input={lonlat}, lat={x}, lon={y}, \
+            npts={numpoints}, width={width} and crs={nldi_el_serv.outCRS()} and \
+            file={file} and out_epsg={nldi_el_serv.outCRS()}'
+            )
     # print(tuple(latlon))
     xs = getXSAtPoint(point=tuple((x, y)),
                       numpoints=numpoints,
                       width=width,
                       file=file)
-    # jsdict = xs.to_crs(xstool.out_crs).to_dict() #.to_crs(xstool.out_crs)
-    # # print(type(jsdict))
-    # # print(jsdict)
-    # json.dump(xs.to_dict(), file)
-    return xs
-    # df = pd.DataFrame({'elevation':xs.elevation.values,
-    #                    'Latitude':xs.coords.y.values,
-    #                    'Longitude':xs.coords.x.values})
-    # gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.Longitude, df.Latitude))
-    # return gdf.to_json()
+    if file is None:
+        print(xs.to_json())
+    return 0
 
 # XS command at user defined endpoints
 
 
 @main.command()
 @click.option('-f', '--file',
-              required=True,
+              default=None,
               type=click.File('w'),
               help='Output json file')
 @click.option('-s', '--startpt',
@@ -116,27 +116,30 @@ def XSAtPoint(nldi_el_serv, lonlat, numpoints, width, file):
 def XSAtEndPts(nldi_el_serv, startpt, endpt, crs, numpoints, file, verbose):
     x1 = startpt[0]
     y1 = startpt[1]
-    x2 = endpt[0]   
+    x2 = endpt[0]
     y2 = endpt[1]
     nl = '\n'
-    print(
-        f'input:  {nl}, \
-        start: {startpt}, {nl}, \
-        end: {endpt}, {nl}, \
-        x1:{x1}, y1:{y1}, {nl}, \
-        x2:{x2}, y2:{y2}, {nl}, \
-        npts={numpoints}, {nl}, \
-        input_crs={crs}, {nl}, \
-        output_crs={nldi_el_serv.outCRS()}  {nl}, \
-        file={file}, {nl}, \
-        verbose: {verbose} '
-        )
+    if verbose:
+        print(
+            f'input:  {nl}, \
+            start: {startpt}, {nl}, \
+            end: {endpt}, {nl}, \
+            x1:{x1}, y1:{y1}, {nl}, \
+            x2:{x2}, y2:{y2}, {nl}, \
+            npts={numpoints}, {nl}, \
+            input_crs={crs}, {nl}, \
+            output_crs={nldi_el_serv.outCRS()}  {nl}, \
+            file={file}, {nl}, \
+            verbose: {verbose} '
+            )
     path = []
     path.append(startpt)
     path.append(endpt)
-    print(type(path))
+    # print(type(path))
     xs = getXSAtEndPts(path=path, numpts=numpoints, crs=crs, file=file)
-    print(xs)
+    if file is None:
+        print(xs.to_json())
+    return 0
 
 
 if __name__ == '__main__':
