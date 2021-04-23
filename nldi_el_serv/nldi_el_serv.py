@@ -30,13 +30,18 @@ def dataframe_to_geodataframe(df, crs):
     return gdf
 
 
-def getXSAtEndPts(path, numpts, crs, file=None):
-    # print(
-    #     f'geom: {path} numpts: {numpts} file: {file}'
-    # )
+def getXSAtEndPts(path, numpts, crs, file=None, res=10):
+    """[summary]
 
-    # y = []
-    # x = []
+    Args:
+        path ([type]): [description]
+        numpts ([type]): [description]
+        crs ([type]): [description]
+        file ([type], optional): [description]. Defaults to None.
+
+    Returns:
+        [type]: [description]
+    """
     lnst = []
     for pt in path:
         # print(pt[0], pt[1])
@@ -57,7 +62,7 @@ def getXSAtEndPts(path, numpts, crs, file=None):
     # print(xs_line.total_bounds, xs_line.bounds)
     bb = xs_line.total_bounds - ((100., 100., -100., -100.))
     # print('before dem', bb)
-    dem = py3dep.get_map("DEM", tuple(bb), resolution=10,
+    dem = py3dep.get_map("DEM", tuple(bb), resolution=res,
                          geo_crs="EPSG:3857", crs="epsg:3857")
 
     # print('after dem')
@@ -89,7 +94,7 @@ def getXSAtEndPts(path, numpts, crs, file=None):
         return gpdsi
 
 
-def getXSAtPoint(point, numpoints, width, file=None):
+def getXSAtPoint(point, numpoints, width, file=None, res=10):
     """[summary]
 
     Args:
@@ -118,7 +123,7 @@ def getXSAtPoint(point, numpoints, width, file=None):
     # get topo polygon with buffer to ensure there is enough topography to interpolate xs line
     # With coarsest DEM (30m) 100. m should
     bb = xs_line.total_bounds - ((100., 100., -100., -100.))
-    dem = py3dep.get_map("DEM", tuple(bb), resolution=10,
+    dem = py3dep.get_map("DEM", tuple(bb), resolution=res,
                          geo_crs="EPSG:3857", crs="epsg:3857")
     x, y = xs.get_xs_points()
     dsi = dem.interp(x=('z', x), y=('z', y))

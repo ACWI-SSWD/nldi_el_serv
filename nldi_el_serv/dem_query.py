@@ -9,7 +9,8 @@ import requests
 from shapely.geometry import Point, LineString, Polygon
 
 # Resolution types and their respective IDs for the Rest Service
-res_types = {'res_1m': 19, 'res_3m': 19, 'res_5m': 20, 'res_10m': 21, 'res_30m': 22, 'res_60m': 23}
+res_types = {'res_1m': 18, 'res_3m': 19, 'res_5m': 20, 'res_10m': 21, 'res_30m': 22, 'res_60m': 23}
+# res_types = {'res_1m': 1, 'res_3m': 2, 'res_5m': 3, 'res_10m': 4, 'res_30m': 5, 'res_60m': 6}
 dim_order = {'latlon': 0, 'lonlat': 1}
 # Create a bounding box from any geo type
 # 'width' is in meters. It is the width of the buffer to place around the input geometry
@@ -51,40 +52,40 @@ def get_dem(bbox, res_type):
 
     url = f'https://index.nationalmap.gov/arcgis/rest/services/3DEPElevationIndex/MapServer/{res_id}/query'
     payload = {
-        "where": "",
-        "text": "",
-        "objectIds": "",
-        "time": "",
+        # "where": "",
+        # "text": "",
+        # "objectIds": "",
+        # "time": "",
         "geometry": "{xmin:\""+minx+"\",ymin:\""+miny+"\",xmax:\""+maxx+"\",ymax:\""+maxy+"\",spatialReference:{wkid:4326}}",
         "geometryType": "esriGeometryEnvelope",
         "inSR": "EPSG:4326",
-        "spatialRel": "esriSpatialRelWithin",
-        "relationParam": "",
-        "outFields": "",
-        "returnGeometry": "false",
-        "returnTrueCurves": "false",
-        "maxAllowableOffset": "",
-        "geometryPrecision": "",
+        "spatialRel": "esriSpatialRelIntersects",
+        # "relationParam": "",
+        # "outFields": "",
+        "returnGeometry": "true",
+        # "returnTrueCurves": "false",
+        "maxAllowableOffset": "100",
+        "geometryPrecision": "3",
         "outSR": "EPSG:4326",
-        "having": "",
-        "returnIdsOnly": "false",
-        "returnCountOnly": "false",
-        "orderByFields": "",
-        "groupByFieldsForStatistics": "",
-        "outStatistics": "",
-        "returnZ": "false",
-        "returnM": "false",
-        "gdbVersion": "",
-        "historicMoment": "",
-        "returnDistinctValues": "false",
-        "resultOffset": "",
-        "resultRecordCount": "",
-        "queryByDistance": "",
-        "returnExtentOnly": "false",
-        "datumTransformation": "",
-        "parameterValues": "",
-        "rangeValues": "",
-        "quantizationParameters": "",
+        # "having": "",
+        # "returnIdsOnly": "false",
+        # "returnCountOnly": "false",
+        # "orderByFields": "",
+        # "groupByFieldsForStatistics": "",
+        # "outStatistics": "",
+        # "returnZ": "false",
+        # "returnM": "false",
+        # "gdbVersion": "",
+        # "historicMoment": "",
+        # "returnDistinctValues": "false",
+        # "resultOffset": "",
+        # "resultRecordCount": "",
+        # "queryByDistance": "",
+        # "returnExtentOnly": "false",
+        # "datumTransformation": "",
+        # "parameterValues": "",
+        # "rangeValues": "",
+        # "quantizationParameters": "",
         "featureEncoding": "esriDefault",
         "f": "geojson"
         }

@@ -24,7 +24,7 @@ class PathGen:
         # print(line, spacing)
         d = 0.0
         index = 0
-        while d < self.width:
+        while d < self.width and index < self.ny:
             point = line.interpolate(d)
             self.x[index] = point.x
             self.y[index] = point.y
