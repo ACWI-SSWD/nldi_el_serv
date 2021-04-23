@@ -18,6 +18,8 @@ class XSGen:
         self.tension = 0.5
         self.width = width
         self.cl_length = self.cl_geom.geometry[0].length
+        if ny % 2 == 0:
+            ny += 1
         self.ny = ny
         if self.cl_length > 20.0:
             self.nx = int(self.cl_length / 10)
@@ -67,7 +69,7 @@ class XSGen:
     def get_xs_points(self):
         return self.x, self.y
 
-    def get_strm_seg_spine(self):
+    def get_strm_seg_spline(self):
         x, y = self.cl.getinterppts()
         points = gpd.GeoSeries(map(Point, zip(x, y)))
         ls = LineString((points.to_list()))

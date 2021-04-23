@@ -82,8 +82,9 @@ def test_xsatendpts():
 
 def test_xsatendpts_wres():
     runner = CliRunner()
-    res = ['1m', '3m', '5m', '10m', '30m', '60m']
+    res = ['1m', '3m', '5m', '10m', '30m']
     for tr in res:
+        print(f'resoluition: {tr}')
         with NamedTemporaryFile(mode='w+') as tf:
             result = runner.invoke(
                                     cli.main,
