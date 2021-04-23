@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-
-
 import pytest
 
 from nldi_el_serv.XSGen import XSGen
@@ -19,12 +16,12 @@ import json
                                 ("USGS-06888500", 'MILL C NR PAXICO, KS', 3, 100, 200)
                             ]
                         )
-def get_gagexs(gage, gage_name, res, ny, width):
+def test_get_gagexs(gage, gage_name, res, ny, width):
     gageloc = NLDI().getfeature_byid("nwissite", gage).to_crs('epsg:3857')
     cid = gageloc.comid.values.astype(str)
     # print(cid, gageloc.comid.values.astype(int)[0])
     strmseg_loc = NLDI().getfeature_byid("comid", cid[0]).to_crs('epsg:3857')
-    xs = XSGen(point=gageloc, cl_geom=strmseg_loc, ny=101, width=200)
+    xs = XSGen(point=gageloc, cl_geom=strmseg_loc, ny=ny, width=width)
     xs_line = xs.get_xs()
     spline = xs.get_strm_seg_spline()
     print(spline)
@@ -40,8 +37,8 @@ def get_gagexs(gage, gage_name, res, ny, width):
     dem = py3dep.get_map("DEM", tuple(t1), resolution=res, geo_crs="EPSG:3857", crs="epsg:3857")
     dsi = dem.interp(x=('z', x), y=('z', y))
     vals = dsi.values
-    if ny % 2 != 0:
+    if ny % 2 == 0:
         ny += 1
 
     assert(len(vals) == ny)
-    assert(type(vals) == float)
+    assert(vals.dtype == float)
