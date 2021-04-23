@@ -1,6 +1,10 @@
 =======
 History
 =======
+0.1.4 (2021-04-23)
+------------------
+* more tests, still working out the kinks
+
 0.1.3 (2021-04-13)
 ------------------
 * added xsatendpts to CLI

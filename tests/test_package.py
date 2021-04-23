@@ -13,7 +13,8 @@ import json
                             'gage, gage_name, res, ny, width',
                             [
                                 ("USGS-06888500", 'MILL C NR PAXICO, KS', 3, 100, 200),
-                                ("USGS-06888500", 'MILL C NR PAXICO, KS', 3, 100, 200)
+                                ("USGS-06721000", 'SOUTH PLATTE RIVER AT FORT LUPTON, CO.', 10, 100, 200),
+                                ("USGS-06759500", 'SOUTH PLATTE RIVER AT FORT MORGAN, CO.', 1, 100, 200)
                             ]
                         )
 def test_get_gagexs(gage, gage_name, res, ny, width):
