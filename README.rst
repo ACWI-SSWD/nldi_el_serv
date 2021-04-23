@@ -38,10 +38,10 @@ Credits
 
 CLI developed from example: https://github.com/pallets/click/blob/master/examples/repo/repo.py
 
-This package was created with Cookiecutter_ and the `NSLS-II/scientific-python-cookiecutter`_ project template.
+This package was created with Cookiecutter_ and the _Scientific-python-cookiecutter.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _https://github.com/NSLS-II/scientific-python-cookiecutter
+.. _Scientific_python_cookiecutter: https://github.com/NSLS-II/scientific-python-cookiecutter
 
 Disclaimer
 ----------

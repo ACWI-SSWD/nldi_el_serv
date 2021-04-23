@@ -1,5 +1,5 @@
 Welcome to NLDI Elevation Services's documentation!
-======================================
+===================================================
 
 .. toctree::
    :maxdepth: 2
