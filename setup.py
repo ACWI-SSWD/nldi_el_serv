@@ -65,6 +65,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/ACWI-SSWD/nldi_el_serv',
-    version='0.1.3',
+    version='0.1.4',
     zip_safe=False,
 )
