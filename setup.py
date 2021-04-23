@@ -57,6 +57,7 @@ setup(
     install_requires=requirements,
     license="CC0 1.0 Universal public domain dedication",
     long_description=readme + '\n\n' + history,
+    long_description_content_type='text/markdown',
     include_package_data=True,
     keywords='nldi_el_serv',
     name='nldi_el_serv',
