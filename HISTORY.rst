@@ -2,6 +2,10 @@
 History
 =======
 
+0.1.9 (2021-04-27)
+------------------
+* more tests, still working out the kink
+
 0.1.8 (2021-04-27)
 ------------------
 * more tests, still working out the kink
